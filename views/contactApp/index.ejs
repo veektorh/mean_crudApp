@@ -1,0 +1,88 @@
+<% include partials/header %>
+
+    <div class="container">
+        
+        <h1 class="text-center">Contact App</h1>
+        <% if(status == 'error'){%>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="alert alert-danger">
+                        An Error Occured
+                    </div>
+                </div>
+            </div>
+
+            <%}%>
+
+                <% if(status == 'success'){%>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="alert alert-success">
+                                saved successfully
+                            </div>
+                        </div>
+                    </div>
+                    <%}%>
+
+                        <div class="row">
+                            <div class="col-md-1" >
+                                    <a class="btn btn-success" href="/contactApp/add"> add new </a> 
+                            </div>
+                            <div class="col-md-6">
+                                
+                            </div>
+                        </div>
+                        <br><br>
+                        <% if(contacts){ %>
+                            <table class="table ">
+                                <thead>
+                                        <tr>
+                                                <td>Name</td>
+                                                <td>Email</td>
+                                                <td>Phone</td>
+                                                <td> edit </td>
+                                                <td> delete </td>
+                                            </tr>
+                                </thead>
+                                <% contacts.forEach((res)=>{ %>
+                                    <tr>
+                                        <td>
+                                            <%= res.name %>
+                                        </td>
+                                        <td>
+                                            <%= res.email %>
+                                        </td>
+                                        <td>
+                                            <%= res.phone %>
+                                        </td>
+                                        <td> <a href="/contactApp/edit/<%= res._id%>"> edit</a></td>
+                                        <td> <a href="#" class="btnDelete" data-id="<%= res._id %>"> delete</a></td>
+                                    </tr>
+
+                                    <% }) %>
+                            </table>
+
+                            <%}%>
+    </div>
+
+
+    <script>
+        $(document).ready(() => {
+            $(".btnDelete").click((e) => {
+                var confirmResult = confirm("Are you sure");
+                if (confirmResult) {
+                    var id = $(e.target).attr("data-id");
+                    if (id) {
+                        $.post('/contactApp/delete', { id: id }, (res) => {
+                            console.log(res);
+                            if (res == "success") {
+                                location.reload();
+                            }
+                        })
+                    }
+                }
+                return ;
+
+            })
+        })
+    </script>

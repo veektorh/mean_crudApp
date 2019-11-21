@@ -1,0 +1,40 @@
+<% include partials/header %>
+
+
+
+    <div class="container">
+        <div class="col-md-6 col-md-offset-3">
+
+            <h1 class="text-center"> Add New</h1>
+            <br><br>
+
+            <a href="/ContactApp" class="btn btn-warning"> Back to list</a> <br><br>
+            <% if(errors){ %>
+                <% errors.forEach((res)=>{ %>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="alert alert-danger">
+                                <%= res.message %>
+                            </div>
+                        </div>
+                    </div>
+                    <% }) %>
+                        <%}%>
+                            <form action="/contactApp/add" method="POST">
+                                <div>
+                                    <!-- <input type="hidden" name="_id" value="<%= form._id %>"> -->
+
+                                    <label for="">Name : </label> <br>
+                                    <input type="text" class="form-control" name="name" value="<%= form.name %>" /> <br><br>
+
+                                    <label for="">email : </label> <br>
+                                    <input type="text" class="form-control" name="email" value="<%= form.email %>" /> <br><br>
+
+                                    <label for="">Phone : </label> <br>
+                                    <input type="text" class="form-control" name="phone" value="<%= form.phone %>" /> <br><br>
+
+                                    <input type="submit" value="Save" class="btn btn-primary btn-block">
+                                </div>
+                            </form>
+        </div>
+    </div>
